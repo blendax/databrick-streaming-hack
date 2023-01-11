@@ -1,2 +1,8 @@
 # databrick-streaming-hack
-End to end databricks streaming
+This repo contains notebooks for an end to end scenario using spark structured streaming.
+
+1. Generate data
+2. Read from EventHubs and write to Raw
+3. Read from Raw and write to Silver
+4. Read from Silver and write to Raw
+
