@@ -42,7 +42,7 @@ checkpoint_version = 1
 
 
 ehConf = {}
-ehConf['eventhubs.connectionString'] = sc._jvm.org.apache.spark.eventhubs.EventHubsUtils.encrypt(eventhubs_con_str)
+ehConf['eventhubs.connectionString'] = sc._jvm.org.apache.spark.eventhubs.EventHubsUtils.encrypt(eventhubs_con_str_iot)
 ehConf['eventhubs.consumerGroup'] = evenHubsConsumerGroup
 
 # Creating an Event Hubs Source for Streaming Queries

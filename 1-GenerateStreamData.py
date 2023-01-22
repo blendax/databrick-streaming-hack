@@ -107,7 +107,7 @@ testDataSpec = (
 
                 )
 
-dfTestData = testDataSpec.build(withStreaming=True, options={'rowsPerSecond': 100})
+df_gendata_stream = testDataSpec.build(withStreaming=True, options={'rowsPerSecond': 100})
 
 # COMMAND ----------
 
@@ -115,15 +115,15 @@ dfTestData = testDataSpec.build(withStreaming=True, options={'rowsPerSecond': 10
 dbutils.fs.rm(f"{lake_checkpoint_root_path}/checkpoints/gen_iot/", True)
 
 # Transform data
-dfTestData = dfTestData.withColumn('body', to_json(
-       struct(*dfTestData.columns),
+df_gendata_stream = df_gendata_stream.withColumn('body', to_json(
+       struct(*df_gendata_stream.columns),
        options={"ignoreNullFields": False}))\
        .select('body')
 ehConf = {}
-ehConf['eventhubs.connectionString'] = sc._jvm.org.apache.spark.eventhubs.EventHubsUtils.encrypt(eventhubs_con_str)
+ehConf['eventhubs.connectionString'] = sc._jvm.org.apache.spark.eventhubs.EventHubsUtils.encrypt(eventhubs_con_str_iot)
 
 # Write to EventHub
-dfTestData \
+df_gendata_stream \
   .writeStream \
   .format("eventhubs") \
   .outputMode("append") \

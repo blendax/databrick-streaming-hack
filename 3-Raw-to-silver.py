@@ -4,7 +4,7 @@
 
 # COMMAND ----------
 
-checkpoint_version = 1
+checkpoint_version = 2
 
 # COMMAND ----------
 
@@ -43,10 +43,6 @@ df_transform \
 # COMMAND ----------
 
 display(dbutils.fs.ls(f"{lake_data_root_path}/silver/iot"))
-
-# COMMAND ----------
-
-spark.sql(f"CREATE TABLE {database_name}.silveriot LOCATION '{lake_data_root_path}/silver/iot'")
 
 # COMMAND ----------
 
