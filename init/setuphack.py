@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC %md
 # MAGIC ##### Set up params to run the notebook
-# MAGIC Feel free to chnage these to your needs and preferences
+# MAGIC Feel free to change these to your needs and preferences
 
 # COMMAND ----------
 
