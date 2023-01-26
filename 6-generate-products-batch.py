@@ -67,3 +67,7 @@ path = f"{lake_data_root_path}/bronze/products"
 print(f"Writing {rows} rows of data to: {path}")
 print(f"df_products.count(){df_products.count()}")
 df_products.write.mode("overwrite").saveAsTable(f"{database_name_batch}.productsbronze")
+
+# COMMAND ----------
+
+dbutils.notebook.exit("{" + f'"result":"products generated to:{path}"'  + "}")
