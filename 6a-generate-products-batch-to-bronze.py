@@ -10,7 +10,11 @@
 
 # COMMAND ----------
 
-# MAGIC %pip install dbldatagen
+try:
+    import dbldatagen as dg
+except:
+    raise Exception("Please install PyPi lib: dbldatagen on cluster or %pip install dbldatagen in a cell in this notebook")
+    
 
 # COMMAND ----------
 
@@ -30,8 +34,16 @@
 
 # COMMAND ----------
 
+table_name = "productsbronze"
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC #### Generate products dimension
+
+# COMMAND ----------
+
+spark.sql(f"DROP TABLE IF EXISTS {database_name_batch}.{table_name}")
 
 # COMMAND ----------
 
@@ -40,14 +52,15 @@ from pyspark.sql.types import IntegerType, FloatType, StringType
 from pyspark.sql.functions import max
 import dbldatagen.distributions as dist
 
-rows = 19001
+rows = 19001 # Original amount of rows
+# rows = 18900
 format="parquet"
 # To make sure we get ~100MB files
 partiton_map = {19001: 1, 10: 4, 100: 16, 1000: 176, 10000: 1936}
 country_codes = ['SE', 'US', 'FR', 'CA', 'IN', 'JM', 'IE', 'PK', 'GB', 'IL', 'AU', 'SG', 'ES', 'GE', 'MX', 'ET', 'SA', 'LB', 'NL']
 country_weights = [200, 365, 67, 38, 126, 3, 7, 212, 67, 9, 25, 6, 47, 83, 126, 109, 58, 8, 17]
 
-num_part = partiton_map.get(rows)
+num_part = 1
 data_rows = rows
 df_spec = (dg.DataGenerator(spark, name="product_data_set1", rows=data_rows, partitions=num_part)
                             .withIdOutput()
@@ -59,15 +72,20 @@ df_spec = (dg.DataGenerator(spark, name="product_data_set1", rows=data_rows, par
                             .withColumn("origin", StringType(), values=country_codes, weights=country_weights)
                             #.withColumn("price", "int", minValue=1, maxValue=10000, distribution=dist.Normal(mean=1000, stddev=10), random=True, baseColumn="productid")
                             .withColumn("price", "int", minValue=1, maxValue=10000, distribution=dist.Gamma(3.0,1.0), random=True)
-                            .withColumn("stats", FloatType(), expr="floor(rand() * 350) * (86400 + 3600)", numColumns=3)
+                            .withColumn("status", StringType(), values=["active", "deleted", "new", "inactive"], weights=[100,2,1,1])
                             )
 
 df_products = df_spec.build()
-path = f"{lake_data_root_path}/bronze/products"
-print(f"Writing {rows} rows of data to: {path}")
-print(f"df_products.count(){df_products.count()}")
-df_products.write.mode("overwrite").saveAsTable(f"{database_name_batch}.productsbronze")
+#path = f"{lake_data_root_path}/bronze/products"
+#print(f"Writing {rows} rows of data to: {path}")
+#print(f"df_products.count(){df_products.count()}")
+df_products.write.mode("overwrite").saveAsTable(f"{database_name_batch}.{table_name}")
 
 # COMMAND ----------
 
-dbutils.notebook.exit("{" + f'"result":"products generated to:{path}"'  + "}")
+# spark.sql(f"DROP TABLE {database_name_batch}.{table_name}")
+# spark.sql(f"SELECT * from {database_name_batch}.{table_name} LIMIT 10")
+
+# COMMAND ----------
+
+dbutils.notebook.exit("{" + f'"result":"products generated to: {database_name_batch}.{table_name}"'  + ", \"returnkey1\": \"value1\"}")
