@@ -97,6 +97,7 @@ query = (
 # MAGIC - Why does it take time before we get any distinct keys in the streaming? I.e. before we get any results below in the sql query?
 # MAGIC - What is happening?
 # MAGIC - We still stream a lot of data
+# MAGIC - Could we do it in a nother way?
 
 # COMMAND ----------
 

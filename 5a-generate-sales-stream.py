@@ -74,7 +74,7 @@ df_spec = (dg.DataGenerator(spark, name="sales_data_set1", rows=data_rows, parti
                             .withColumn("area", StringType(), values=['area1', 'area2', 'area3', 'area4', 'area5', 'area6' ,'area17', 'area8', 'area9', 'area10' ,'area11', 'area12', 'area13'], random=True, weights=[1,1,2,2,4,7,9,7,5,4,2,1,1])
                             .withColumn("r", FloatType(), expr="floor(rand() * 350) * (86400 + 3600)", numColumns=4)
                             )                
-df_gendata_stream = df_spec.build(withStreaming=True, options={'rowsPerSecond': 100})
+df_gendata_stream = df_spec.build(withStreaming=True, options={'rowsPerSecond': 50})
 
 # COMMAND ----------
 
