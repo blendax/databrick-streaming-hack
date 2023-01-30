@@ -17,13 +17,15 @@ print(f"Will use storage DBFS: {use_dbfs}")
 secret_scope = "databricks"
 
 # Your secret name in the keyvault containing connection string to the eventhub for iot data
-keyvault_secret_name_iot = "eventhubs-genstream-con-str"
+keyvault_secret_name_iot = "IoTConnectionString" #"eventhubs-genstream-con-str"
 eventhubs_con_str_iot = dbutils.secrets.get(secret_scope, keyvault_secret_name_iot)
 
 # Your secret name in the keyvault containing connection string to the eventhub for seles data
-keyvault_secret_name_sales = "eventhubs-gensales-con-str"
+keyvault_secret_name_sales = "SalesConnectionString" #"eventhubs-gensales-con-str"
 eventhubs_con_str_sales = dbutils.secrets.get(secret_scope, keyvault_secret_name_sales)
 
+key_vault_secret_name_storgae_sas_token = "StorageSASToken"
+storage_sas_token = dbutils.secrets.get(secret_scope, key_vault_secret_name_storgae_sas_token)
 
 # COMMAND ----------
 

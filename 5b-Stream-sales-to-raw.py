@@ -9,8 +9,6 @@
 
 # COMMAND ----------
 
-# Path to write raw data in lake root folder
-pathWriteRaw = "streaming/raw/sales"
 # Path to write checkpoint in checkpoint root folder
 checkpointpath = "checkpoints/raw/sales"
 # your event hubs consumer group to use for reading eventhub (create one if you don't have)
