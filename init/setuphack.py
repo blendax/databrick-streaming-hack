@@ -36,14 +36,13 @@ storage_key = dbutils.secrets.get(secret_scope, key_vault_secret_name_storgae_ke
 
 # COMMAND ----------
 
-"abfss://process@storagemh1westeu.dfs.core.windows.net/streamhack".endswith("streamhack")
-
-# COMMAND ----------
+# Storage Account Name
+stor_acc_name = "storagemh1westeu"
 
 # Your Data root path for the lab
-lake_data_root_path = "abfss://datasets@storagemh1westeu.dfs.core.windows.net/streamhack"
+lake_data_root_path = f"abfss://datasets@{stor_acc_name}.dfs.core.windows.net/streamhack"
 # Your checkpoints root path
-lake_checkpoint_root_path = "abfss://process@storagemh1westeu.dfs.core.windows.net/streamhack"
+lake_checkpoint_root_path = f"abfss://process@{stor_acc_name}.dfs.core.windows.net/streamhack"
 
 if lake_data_root_path.endswith("streamhack"):
     raise Exception("Please chnage the lake_data_root_path above to something specific for your user/team so that you don't mix up your data with other teams data")
@@ -94,7 +93,3 @@ print("database_location_hive_batch:", database_location_hive_batch)
 # Create our own HIVE database with a specific default location
 spark.sql(f"CREATE DATABASE IF NOT EXISTS {database_name} LOCATION '{database_location_hive}'")
 spark.sql(f"CREATE DATABASE IF NOT EXISTS {database_name_batch} LOCATION '{database_location_hive_batch}'")
-
-# COMMAND ----------
-
-dbutils.fs.ls("abfss://anderstest99@storagemh1westeu.dfs.core.windows.net/")
