@@ -18,7 +18,10 @@ pathWriteRaw = "streaming/rawiot"
 # Path to write checkpoint in checkpoint root folder
 checkpointpath = "checkpoints/raw"
 # your event hubs consumer group to use for reading eventhub (create one if you don't have)
-evenHubsConsumerGroup = "databricks1"
+
+# TODO: fill in and remove exception chose "databrickslab-1", "databrickslab-2", "databrickslab-3", "databrickslab-4" or what you have in your event hubs
+# raise Exception("Fill in consumer group") 
+evenHubsConsumerGroup = "databrickslab-1"
 checkpoint_version = 1
 
 

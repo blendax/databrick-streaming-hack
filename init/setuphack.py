@@ -81,3 +81,7 @@ print("database_location_hive_batch:", database_location_hive_batch)
 # Create our own HIVE database with a specific default location
 spark.sql(f"CREATE DATABASE IF NOT EXISTS {database_name} LOCATION '{database_location_hive}'")
 spark.sql(f"CREATE DATABASE IF NOT EXISTS {database_name_batch} LOCATION '{database_location_hive_batch}'")
+
+# COMMAND ----------
+
+dbutils.fs.ls("abfss://anderstest99@storagemh1westeu.dfs.core.windows.net/")
