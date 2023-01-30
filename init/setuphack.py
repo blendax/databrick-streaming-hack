@@ -5,6 +5,10 @@
 
 # COMMAND ----------
 
+spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
+
+# COMMAND ----------
+
 # If you do not have a external storage account you can use the WS local storage DBFS to simulate a storage account.
 # It's not recommeneded  to store any business data in DBFS, but will work for the lab
 use_dbfs = False
