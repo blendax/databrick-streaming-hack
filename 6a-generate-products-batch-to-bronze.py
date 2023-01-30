@@ -4,6 +4,10 @@
 
 # COMMAND ----------
 
+# TODO: Create widget for parameter from Data Factory
+
+# COMMAND ----------
+
 # MAGIC %md 
 # MAGIC #### Install Databricks Labs Data Generator
 # MAGIC See: https://github.com/databrickslabs/dbldatagen for more info

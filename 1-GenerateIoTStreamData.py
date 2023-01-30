@@ -13,12 +13,24 @@
 # COMMAND ----------
 
 # MAGIC %md 
-# MAGIC #### Install Databricks Labs Data Generator
-# MAGIC See: https://github.com/databrickslabs/dbldatagen for more info
+# MAGIC #### Install Databricks Labs Data Generator on cluster
+# MAGIC We use this lib to generate data, both streaming and later batch data for our labs.<br>
+# MAGIC See: https://github.com/databrickslabs/dbldatagen<br>
+# MAGIC for more info.
 
 # COMMAND ----------
 
-# MAGIC %pip install dbldatagen
+# Test that PyPi library dbldatagen is installed on cluster
+try:
+    import dbldatagen as dg
+except:
+    raise Exception("Please install PyPi lib: dbldatagen on cluster or %pip install dbldatagen in a cell in this notebook")
+    
+
+# COMMAND ----------
+
+# Uncomment the line below if you want to install lib locally in this notebook only instead
+# %pip install dbldatagen
 
 # COMMAND ----------
 

@@ -6,7 +6,7 @@
 
 #Params
 table_name_products_bronze = "productsbronze"
-table_name_products_silver = "productssilver"
+table_name_products_silver = "productssilver" # tag with user name
 
 # COMMAND ----------
 
@@ -35,7 +35,7 @@ df_b = spark.table(f"{database_name_batch}.{table_name_products_bronze}")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ##### Simple transform replacing SE with Sweden and FR with France for column origin
+# MAGIC ##### Transform replacing SE with Sweden and FR with France for column origin
 
 # COMMAND ----------
 
@@ -43,17 +43,24 @@ df_b = df_b.withColumn("Origin", expr("CASE WHEN Origin = 'SE' THEN 'Sweden' WHE
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC ##### Create a temp view to use for the merge when we are done with the transformations
+# Define UDF to transform
+# TODO: 
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC ##### Create a temp view to use for the upsert merge when we are done with the transformations
+# MAGIC Merge docs can be found here: https://learn.microsoft.com/en-gb/azure/databricks/delta/merge
+
+# COMMAND ----------
+
+# We have our transformation in a pyspark dataframe - we can create a temp view for or data frame to work with SQL in the upsert merge
 df_b.createOrReplaceTempView("transformed_bronze_tempview")
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- Note WHEN NOT MATCHED BY required ADB runtime 12.1+
+# MAGIC -- Note WHEN NOT MATCHED BY requires ADB runtime 12.1+
 # MAGIC USE database batchdblake;
 # MAGIC 
 # MAGIC MERGE INTO productssilver target USING transformed_bronze_tempview source

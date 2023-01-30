@@ -1,11 +1,20 @@
 # Databricks notebook source
 # MAGIC %md 
-# MAGIC #### Install Databricks Labs Data Generator
+# MAGIC #### Use Databricks Labs Data Generator
 # MAGIC See: https://github.com/databrickslabs/dbldatagen for more info
 
 # COMMAND ----------
 
-# MAGIC %pip install dbldatagen
+try:
+    import dbldatagen as dg
+except:
+    raise Exception("Please install PyPi lib: dbldatagen on cluster or %pip install dbldatagen in a cell in this notebook")
+    
+
+# COMMAND ----------
+
+# Uncomment the line below if you want to install dbldatagen locally in this notebook only instead
+# %pip install dbldatagen
 
 # COMMAND ----------
 
@@ -33,6 +42,11 @@ from pyspark.sql.functions import max, to_json, struct
 
 # MAGIC %md
 # MAGIC #### Generate Sales
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ##### Build specification for data to generate
 
 # COMMAND ----------
 
@@ -64,18 +78,36 @@ df_gendata_stream = df_spec.build(withStreaming=True, options={'rowsPerSecond': 
 
 # COMMAND ----------
 
-# Delete any previous checkpoints so we start from scratch in the generated data
+# Delete any previous checkpoints so we start from scratch in the generator
 dbutils.fs.rm(f"{lake_checkpoint_root_path}/checkpoints/{checkpoint_name}/", True)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ##### Transfor the data to match expected format for EventHubs
+# MAGIC We take all columns in the data frame and put them as json in the column body.<br>
+# MAGIC Then we remove the other columns.
+
+# COMMAND ----------
 
 # Transform data
 df_gendata_stream = df_gendata_stream.withColumn('body', to_json(
        struct(*df_gendata_stream.columns),
        options={"ignoreNullFields": False}))\
        .select('body')
+
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ##### Write data to EventHub
+
+# COMMAND ----------
+
+# Write to EventHub
 ehConf = {}
 ehConf['eventhubs.connectionString'] = sc._jvm.org.apache.spark.eventhubs.EventHubsUtils.encrypt(eventhubs_con_str_sales)
 
-# Write to EventHub
 df_gendata_stream \
   .writeStream \
   .format("eventhubs") \
@@ -83,3 +115,10 @@ df_gendata_stream \
   .options(**ehConf) \
   .option("checkpointLocation", f"{lake_checkpoint_root_path}/checkpoints/{checkpoint_name}/v{checkpoint_version}") \
   .start()
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ##### Questions
+# MAGIC - What purpose does the checkpoint have above when we write to EventHubs?
+# MAGIC - What would happen if we removed the checkpoint (where we write to EventHubs) and re-run the notebbok?
