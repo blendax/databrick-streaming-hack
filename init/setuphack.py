@@ -18,7 +18,7 @@ print(f"Will use storage DBFS: {use_dbfs}")
 
 # Your databricks secret scope name
 # See: https://learn.microsoft.com/en-us/azure/databricks/security/secrets/secret-scopes#create-an-azure-key-vault-backed-secret-scope-using-the-ui to cretae a secret scopy for your secrets in a key vault
-secret_scope = "databricks"
+secret_scope = "databrickskv"
 
 # Your secret name in the keyvault containing connection string to the eventhub for iot data
 keyvault_secret_name_iot = "IoTConnectionString" #"eventhubs-genstream-con-str"
@@ -31,12 +31,25 @@ eventhubs_con_str_sales = dbutils.secrets.get(secret_scope, keyvault_secret_name
 key_vault_secret_name_storgae_sas_token = "StorageSASToken"
 storage_sas_token = dbutils.secrets.get(secret_scope, key_vault_secret_name_storgae_sas_token)
 
+key_vault_secret_name_storgae_key = "StorageAccountKey"
+storage_key = dbutils.secrets.get(secret_scope, key_vault_secret_name_storgae_key)
+
+# COMMAND ----------
+
+"abfss://process@storagemh1westeu.dfs.core.windows.net/streamhack".endswith("streamhack")
+
 # COMMAND ----------
 
 # Your Data root path for the lab
 lake_data_root_path = "abfss://datasets@storagemh1westeu.dfs.core.windows.net/streamhack"
 # Your checkpoints root path
 lake_checkpoint_root_path = "abfss://process@storagemh1westeu.dfs.core.windows.net/streamhack"
+
+if lake_data_root_path.endswith("streamhack"):
+    raise Exception("Please chnage the lake_data_root_path above to something specific for your user/team so that you don't mix up your data with other teams data")
+if lake_checkpoint_root_path.endswith("streamhack"):
+    raise Exception("Please chnage the lake_checkpoint_root_path above to something specific for your user/team so that you don't mix up your data with other teams data")
+
 # database to create for streaming data located in the lake
 database_name = "streamingdblake"
 # location for our database so data not end up in DBFS WS local storage

@@ -12,7 +12,8 @@
 # Path to write checkpoint in checkpoint root folder
 checkpointpath = "checkpoints/raw/sales"
 # your event hubs consumer group to use for reading eventhub (create one if you don't have)
-evenHubsConsumerGroup = "databricks1"
+raise Excpetion("please set your consumer group that you have in your event hub")
+evenHubsConsumerGroup = "databrickslab-1"
 table_name = "salesbronze"
 checkpoint_version = 1
 

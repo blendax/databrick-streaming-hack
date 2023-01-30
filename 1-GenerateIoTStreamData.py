@@ -119,7 +119,7 @@ testDataSpec = (
 
                 )
 
-df_gendata_stream = testDataSpec.build(withStreaming=True, options={'rowsPerSecond': 100})
+df_gendata_stream = testDataSpec.build(withStreaming=True, options={'rowsPerSecond': 50})
 
 # COMMAND ----------
 
@@ -142,3 +142,7 @@ df_gendata_stream \
   .options(**ehConf) \
   .option("checkpointLocation", f"{lake_checkpoint_root_path}/checkpoints/gen_iot/v{checkpoint_version}") \
   .start()
+
+# COMMAND ----------
+
+

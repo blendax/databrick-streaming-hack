@@ -70,6 +70,7 @@ df.withColumn("body", df["body"].cast("string"))
 
 # COMMAND ----------
 
+# Wait until the stream above have started
 display(table(f"{database_name}.raw"))
 
 # COMMAND ----------

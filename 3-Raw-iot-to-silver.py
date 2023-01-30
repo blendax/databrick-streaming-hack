@@ -4,7 +4,7 @@
 
 # COMMAND ----------
 
-checkpoint_version = 2
+checkpoint_version = 1
 
 # COMMAND ----------
 
@@ -42,6 +42,7 @@ df_transform \
 
 # COMMAND ----------
 
+# Wait until stream above has started
 display(dbutils.fs.ls(f"{lake_data_root_path}/silver/iot"))
 
 # COMMAND ----------
