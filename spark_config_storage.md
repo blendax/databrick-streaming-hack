@@ -1,3 +1,5 @@
+### Spark config exmample using storage key
+fs.azure.account.key.<storage-account>.dfs.core.windows.net {{secrets/databrickskv/StorageAccountKey}}
 
 ### Spark config exmample using service principal to access storage account
 ```
