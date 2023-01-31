@@ -1,9 +1,17 @@
 # databrick-streaming-hack
 This repo contains notebooks for an end to end scenario using spark structured streaming.
 
-1. you need to create a cluster with a spark config so that you can access the storage account.
+## Setup instrcutions
 
+1. Look in the azure portal and write down the name of your storagea account to be used for the lab.
+
+2. Make sure you update your team name in the notebook: `/init/setuphack` this will make sure you do get your own copy of the data in the lab.
+  - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though chnage the values of the variables.
+
+3. you need to create a cluster with a spark config so that you can access the storage account.
+  - Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.
   - You can look at the file: `spark_config_storage.md` for what spark config to add based on how you give access to storage.
+  
 2. You need to set your own parameters in the: `/init/setuphack` notebook:
   - storage account name
   - your own root folder for your team

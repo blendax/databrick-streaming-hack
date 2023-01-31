@@ -5,7 +5,24 @@
 
 # COMMAND ----------
 
+# Mandatory parameters
+teamName = "myteam" # Storage Account Name
+storage_account_name = "mystorageaccountname"# "storagemh1westeu"
+use_dbfs = False # If you set use_dbfs = True you don't have to set storage_account_name
+
+# COMMAND ----------
+
 spark.conf.set("fs.azure.createRemoteFileSystemDuringInitialization", "true")
+
+# COMMAND ----------
+
+# Parameter check
+if teamName == "myteam":
+    raise Exception("You need to set a unique teamName above")
+if not teamName.isalnum():
+    raise Exception("please use only alphanumeric letters in the teamName")
+if not use_dbfs and storage_account_name == "mystorageaccountname":
+    raise Exception("please set the storage_account_name")
 
 # COMMAND ----------
 
@@ -36,25 +53,16 @@ storage_key = dbutils.secrets.get(secret_scope, key_vault_secret_name_storgae_ke
 
 # COMMAND ----------
 
-# Storage Account Name
-stor_acc_name = "storagemh1westeu"
-
 # Your Data root path for the lab
-lake_data_root_path = f"abfss://datasets@{stor_acc_name}.dfs.core.windows.net/streamhack"
+lake_data_root_path = f"abfss://datasets@{storage_account_name}.dfs.core.windows.net/streamhack/{teamName}"
 # Your checkpoints root path
-lake_checkpoint_root_path = f"abfss://process@{stor_acc_name}.dfs.core.windows.net/streamhack"
-
-if lake_data_root_path.endswith("streamhack"):
-    raise Exception("Please chnage the lake_data_root_path above to something specific for your user/team so that you don't mix up your data with other teams data")
-if lake_checkpoint_root_path.endswith("streamhack"):
-    raise Exception("Please chnage the lake_checkpoint_root_path above to something specific for your user/team so that you don't mix up your data with other teams data")
-
+lake_checkpoint_root_path = f"abfss://process@{storage_account_name}.dfs.core.windows.net/streamhack/{teamName}"
 # database to create for streaming data located in the lake
-database_name = "streamingdblake"
+database_name = f"streamingdblake{teamName}"
 # location for our database so data not end up in DBFS WS local storage
 database_location_hive = f"{lake_data_root_path}/hivedw/{database_name}"
 # database to create or use for batch data in the lake
-database_name_batch = "batchdblake"
+database_name_batch = f"batchdblake{teamName}"
 # location for our database so data not end up in WS DBFS local storage
 database_location_hive_batch = f"{lake_data_root_path}/hivedw/{database_name_batch}"
 
@@ -63,15 +71,15 @@ database_location_hive_batch = f"{lake_data_root_path}/hivedw/{database_name_bat
 # Same parameters as above, but we will use local WS storage called DBFS instead for the lab
 if use_dbfs:
     # Your Data root path for the lab
-    lake_data_root_path = "dbfs:/streamhack/data"
+    lake_data_root_path = f"dbfs:/streamhack/data/{teamName}"
     # Your checkpoints root path
-    lake_checkpoint_root_path = "dbfs:/streamhack/checkpoints"
+    lake_checkpoint_root_path = f"dbfs:/streamhack/checkpoints/{teamName}"
     # database to create for streaming data
-    database_name = "streamingdbdbfs"
+    database_name = f"streamingdbdbfs{teamName}"
     # location for our database so data
-    database_location_hive = "dbfs:/streamhack/hivedw"
+    database_location_hive = f"dbfs:/streamhack/hivedw/{teamName}"
     # database to create for batch data
-    database_name_batch = "batchdbdbfs"
+    database_name_batch = f"batchdbdbfs{teamName}"
     # location for our database
     database_location_hive_batch = f"{lake_data_root_path}/hivedw/{database_name_batch}"
 
