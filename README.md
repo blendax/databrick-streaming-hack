@@ -9,16 +9,22 @@ This repo contains notebooks for an end to end scenario using spark structured s
   - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though chnage the values of the variables.
 
 3. you need to create a cluster with a spark config so that you can access the storage account.
-  - Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.
-  - You can look at the file: `spark_config_storage.md` for what spark config to add based on how you give access to storage.
+  - If you want to work as a tea you can chose the following when creating a cluster (but you are free to use what you want):
+    - Policy: Unrestricted
+    - Single node
+    - Access Mode: No isolation shared
+    - Runtime version: Standard 12.1
+    - Node type: Standard_DS5_V2 (56GB 16 cores)
+  - Expand the advancec options for the cluster you are creating. Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.
+  - Add required libraries for the cluster under the library tab:
+    - Maven: ```com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.22```
+    - PyPi: ```dbldatagen```
   
-2. You need to set your own parameters in the: `/init/setuphack` notebook:
-  - storage account name
-  - your own root folder for your team
-  - your own event hub consumer group
-  The other parameters you can keep or chnage based on your own choices.
-
-The notebooks and files in this lab are:
+4. Ready to run. Run the notebooks in order staring with notebook 1.
+  
+Problems? Talk to your coach or solve it yourself if you don't have one :-)
+  
+## The notebooks and files in this lab are:
 
 - README.md - This file
 #### LAB 1
