@@ -6,8 +6,8 @@
 # COMMAND ----------
 
 # Mandatory parameters
-teamName = "myteam1" # Storage Account Name
-storage_account_name = "storagemh1westeu" # "mystorageaccountname" 
+teamName = "myteam" # Storage Account Name
+storage_account_name = "mystorageaccountname" 
 use_dbfs = False # If you set use_dbfs = True you don't have to set storage_account_name
 
 # COMMAND ----------
