@@ -24,8 +24,8 @@ This repo contains notebooks for an end to end scenario using spark structured s
 
 <img width="677" alt="image" src="https://user-images.githubusercontent.com/684755/215750161-0236a67c-f141-4834-a057-01b751bd6e37.png">
   - Add required libraries for the cluster under the library tab:
-    - Maven: ```com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.22```
-    - PyPi: ```dbldatagen```
+    - Maven: `com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.22`
+    - PyPi: `dbldatagen`
 <img width="521" alt="image" src="https://user-images.githubusercontent.com/684755/215750360-a3707ed1-b7b6-42a6-9a63-b8c9d0c1172e.png">
   
 4. Ready to run. Run the notebooks in order staring with notebook 1.
