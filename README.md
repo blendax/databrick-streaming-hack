@@ -11,18 +11,17 @@ This repo contains notebooks for an end to end scenario using spark structured s
   - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though chnage the values of the variables.
 <img width="804" alt="image" src="https://user-images.githubusercontent.com/684755/215749668-ba1ac0c3-e468-4016-bfaf-5e76078fda8e.png">
 
-3. you need to create a cluster with a spark config so that you can access the storage account.
-  - If you want to work as a tea you can chose the following when creating a cluster (but you are free to use what you want like personal compute if you don't need to share the cluster):
+3. you need to create a cluster
+  - If you want to work as a team you can chose the following when creating a cluster (but you are free to use what you want like personal compute if you don't need to share the cluster):
     - Policy: Unrestricted
     - Single node
     - Access Mode: No isolation shared
     - Runtime version: Standard 12.1
     - Node type: Standard_DS5_V2 (56GB 16 cores)
 <img width="498" alt="image" src="https://user-images.githubusercontent.com/684755/215749999-983c03ba-625d-41b5-b912-9963bb78b0d5.png">
-
+  - You ned to add storage config to the spark config so that you can access the storage account.
   - Expand the advancec options for the cluster you are creating. Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.
 
-  - Expand the advanced options for the cluster you are creating. Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.
 <img width="677" alt="image" src="https://user-images.githubusercontent.com/684755/215750161-0236a67c-f141-4834-a057-01b751bd6e37.png">
   - Add required libraries for the cluster under the library tab:
     - Maven: ```com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.22```
