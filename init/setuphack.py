@@ -6,8 +6,8 @@
 # COMMAND ----------
 
 # Mandatory parameters
-teamName = "myteam" # Storage Account Name
-storage_account_name = "mystorageaccountname"# "storagemh1westeu"
+teamName = "myteam1" # Storage Account Name
+storage_account_name = "storagemh1westeu" # "mystorageaccountname" 
 use_dbfs = False # If you set use_dbfs = True you don't have to set storage_account_name
 
 # COMMAND ----------
@@ -35,7 +35,7 @@ print(f"Will use storage DBFS: {use_dbfs}")
 
 # Your databricks secret scope name
 # See: https://learn.microsoft.com/en-us/azure/databricks/security/secrets/secret-scopes#create-an-azure-key-vault-backed-secret-scope-using-the-ui to cretae a secret scopy for your secrets in a key vault
-secret_scope = "databrickskv"
+secret_scope = "databricks"
 
 # Your secret name in the keyvault containing connection string to the eventhub for iot data
 keyvault_secret_name_iot = "IoTConnectionString" #"eventhubs-genstream-con-str"
