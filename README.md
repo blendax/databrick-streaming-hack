@@ -4,6 +4,8 @@ This repo contains notebooks for an end to end scenario using spark structured s
 ## Setup instrcutions
 
 1. Look in the azure portal and write down the name of your storagea account to be used for the lab.
+<img width="318" alt="image" src="https://user-images.githubusercontent.com/684755/215749458-a0d3e65d-b12c-424b-9041-483c9e3ee7b2.png">
+
 
 2. Make sure you update your team name in the notebook: `/init/setuphack` this will make sure you do get your own copy of the data in the lab.
   - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though chnage the values of the variables.
@@ -50,7 +52,5 @@ The end result is a curated dataset to be consumed in BI Tools like Power BI via
 #### Configs
 - spark_config_storage.md - exmaples of spark configs to help you access storage. Paste inte your cluster spark config under advanced.
 - /init/setuphack - all parameters for the notebooks. Determing how databases and tables are named. Where data and checkpints are stored. Make sure to use these variables as thenotebooks depend on them.
-  
-<img width="531" alt="image" src="https://user-images.githubusercontent.com/684755/215749003-b13c825a-eecf-4882-b5f9-763967e3b4b9.png">
 
 - /init/setuphack - all parameters for the notebooks. Determing how databases and tables are named. Where data and checkpints are stored. Make sure to use these variables as thenotebooks depend on them.
