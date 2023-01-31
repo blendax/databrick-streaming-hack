@@ -58,5 +58,3 @@ The end result is a curated dataset to be consumed in BI Tools like Power BI via
 #### Configs
 - spark_config_storage.md - exmaples of spark configs to help you access storage. Paste inte your cluster spark config under advanced.
 - /init/setuphack - all parameters for the notebooks. Determing how databases and tables are named. Where data and checkpints are stored. Make sure to use these variables as thenotebooks depend on them.
-
-- /init/setuphack - all parameters for the notebooks. Determing how databases and tables are named. Where data and checkpints are stored. Make sure to use these variables as thenotebooks depend on them.
