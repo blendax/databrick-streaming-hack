@@ -1,5 +1,7 @@
 # databrick-streaming-hack
 This repo contains notebooks for an end to end scenario using spark structured streaming.
+Data is generated and pushed to Azure EventHubs and then read from Databricks.
+Streaming from source -> bronze -> silver -> gold layer and also joining dimensinal data in the way.
 
 ## Setup instrcutions
 
