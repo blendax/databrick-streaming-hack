@@ -3,6 +3,8 @@ This repo contains notebooks for 1-day lab and an end to end scenario using spar
 Data is generated and pushed to Azure EventHubs and then read from Databricks.
 Streaming from source -> bronze -> silver -> gold layer and also joining dimensinal data in the way.
 
+The infrastructure needed for the lab can also be setup using the provided biceps templates which will also match the resource name and keys with the notebooks so that you can get started quickly. It is possible to run the lab without setting up the resources, but then you need to provide your own parameters in the setup notebook.
+
 ## Setup instrcutions
 
 1. Look in the azure portal and write down the name of your storagea account to be used for the lab.
