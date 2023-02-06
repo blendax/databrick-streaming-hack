@@ -1,10 +1,10 @@
-### Spark config exmample using storage key
+### Spark config example using storage key
 ```
 fs.azure.createRemoteFileSystemDuringInitialization true
 fs.azure.account.key.<storage-account>.dfs.core.windows.net {{secrets/databricks/StorageAccountKey}}
 ```
 
-### Spark config exmample using service principal to access storage account
+### Spark config example using service principal to access storage account
 ```
 fs.azure.createRemoteFileSystemDuringInitialization true
 fs.azure.account.auth.type.<storage-account>.dfs.core.windows.net OAuth
@@ -14,7 +14,7 @@ fs.azure.account.oauth2.client.id.<storage-account>.dfs.core.windows.net {{secre
 fs.azure.account.oauth2.client.secret.<storage-account>.dfs.core.windows.net {{secrets/scope/sp-secret}}
 ```
 
-### Spark config exmample using SAS token to access storage account
+### Spark config example using SAS token to access storage account
 ```
 fs.azure.createRemoteFileSystemDuringInitialization true
 fs.azure.account.auth.type.<storage-account>.dfs.core.windows.net SAS
@@ -22,7 +22,7 @@ fs.azure.sas.token.provider.type.<storage-account>.dfs.core.windows.net org.apac
 fs.azure.sas.fixed.token.<storage-account>.dfs.core.windows.net {{secrets/databricks/StorageSASToken}}
 ```
 
-### Spark config exmample using SAS token to access storage account
+### Spark config example using SAS token to access storage account
 ```python
 spark.conf.set("fs.azure.account.auth.type.<storage-account>.dfs.core.windows.net", "SAS")
 spark.conf.set("fs.azure.sas.token.provider.type.<storage-account>.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider")
