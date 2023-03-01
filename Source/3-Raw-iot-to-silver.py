@@ -51,8 +51,12 @@ df_silver = spark.read.format("delta").load(f"{lake_data_root_path}/silver/iot")
 
 # COMMAND ----------
 
-spark.sql(f"CREATE TABLE IF NOT EXISTS {database_name}.silveriot LOCATION '{lake_data_root_path}/silver/iot'")
+spark.sql(f"CREATE TABLE IF NOT EXISTS {database_name}.{teamName}silveriot LOCATION '{lake_data_root_path}/silver/iot'")
 
 # COMMAND ----------
 
-display(table(f"{database_name}.silveriot"))
+display(table(f"{database_name}.{teamName}silveriot"))
+
+# COMMAND ----------
+
+

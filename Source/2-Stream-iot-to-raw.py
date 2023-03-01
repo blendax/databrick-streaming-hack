@@ -161,29 +161,29 @@ display(spark.sql(f"optimize {database_name}.{teamName}rawlake"))
 
 # COMMAND ----------
 
-print(f"replace database (and catalog if using UC) in below scripts with: {database_name}")
+print(f"replace database (and catalog if using UC) in below scripts with: {database_name}.{teamName}{table_name}")
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC DESCRIBE HISTORY financecatalog.financedb.myteam1rawlake
+# MAGIC DESCRIBE HISTORY financedb.NoUCteam1rawiot
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select count(*) from financecatalog.financedb.myteam1rawlake version as of 2
+# MAGIC select count(*) from financedb.NoUCteam1rawiot version as of 2
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select count(*) from financecatalog.financedb.myteam1rawlake TIMESTAMP as of '2024-02-27T14:04:19.000+0000'
+# MAGIC select count(*) from financedb.NoUCteam1rawiot TIMESTAMP as of '2024-02-27T14:04:19.000+0000'
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC -- Vaccum to get rid of obsolete files - based on default time for keeping files
 # MAGIC -- On Delta tables, Databricks does not automatically trigger VACUUM operations. See Remove unused data files with vacuum: https://docs.databricks.com/delta/vacuum.html
-# MAGIC vacuum financecatalog.financedb.myteam1rawlake RETAIN 168 HOURS DRY RUN
+# MAGIC vacuum financedb.NoUCteam1rawiot RETAIN 168 HOURS DRY RUN
 
 # COMMAND ----------
 

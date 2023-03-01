@@ -119,7 +119,7 @@ testDataSpec = (
 
                 )
 
-df_gendata_stream = testDataSpec.build(withStreaming=True, options={'rowsPerSecond': 50})
+df_gendata_stream = testDataSpec.build(withStreaming=True, options={'rowsPerSecond': 10})
 
 # COMMAND ----------
 
