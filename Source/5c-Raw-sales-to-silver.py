@@ -5,14 +5,15 @@
 # COMMAND ----------
 
 # params
-checkpoint_version = 2
-table_name_bronze = "salesbronze"
-table_name_silver = "salessilver"
-checkpoint_path = "checkpoints/silvertable"
+checkpoint_version = 1
+table_name_bronze = f"salesbronze{teamName}"
+table_name_silver = f"salessilver{teamName}"
+checkpoint_path = "checkpoints/silversales"
 
 # COMMAND ----------
 
 from pyspark.sql.functions import get_json_object
+import time
 
 # COMMAND ----------
 
@@ -55,11 +56,12 @@ df_transform = (
 
 # COMMAND ----------
 
-lake_checkpoint_root_path
+dbutils.fs.rm(f"{lake_checkpoint_root_path}/{checkpoint_path}/v{checkpoint_version}", True)
 
 # COMMAND ----------
 
 # Write our streaming raw -> streaming silver(and perform the defined transformation above)
+print(f"Will write to table: {database_name}.{table_name_silver}")
 df_transform \
   .writeStream \
   .format("delta") \
@@ -67,7 +69,6 @@ df_transform \
   .option("mergeSchema", "true") \
   .option("checkpointLocation", f"{lake_checkpoint_root_path}/{checkpoint_path}/v{checkpoint_version}") \
   .toTable(f"{database_name}.{table_name_silver}")
-  # .start(path=f"{lake_data_root_path}/silver/iot")
 
 # COMMAND ----------
 
@@ -77,4 +78,6 @@ df_transform \
 
 # COMMAND ----------
 
+# time.sleep(30)
+print(f"Table name: {database_name}.{table_name_silver}")
 display(table(f"{database_name}.{table_name_silver}"))

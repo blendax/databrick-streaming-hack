@@ -19,6 +19,9 @@
 
 # COMMAND ----------
 
+table_name_sales = f"salessilver{teamName}"
+table_name_products = f"productssilver{teamName}"
+table_name_sales_product_gold = f"salesproductgold{teamName}"
 checkpoint_path = "checkpoints/salesproductsjoin"
 checkpoint_version = 1
 
@@ -29,15 +32,17 @@ from pyspark.sql.functions import col
 # COMMAND ----------
 
 # Look at Sales Silver
-display(table(f"{database_name}.salessilver"))
+print(f"{database_name}.{table_name_sales}")
+display(table(f"{database_name}.{table_name_sales}"))
 
 # COMMAND ----------
 
-display(table(f"{database_name_batch}.productssilver"))
+display(table(f"{database_name_batch}.{table_name_products}"))
 
 # COMMAND ----------
 
 # MAGIC %sql
+# MAGIC -- Example sql code for join
 # MAGIC -- join on productid
 # MAGIC select s.id as salesid, s.productid, s.purchasedate, p.origin as productorigin, p.price as productprice,
 # MAGIC   s.location as saleslocation, p.status as productstatus
@@ -47,7 +52,7 @@ display(table(f"{database_name_batch}.productssilver"))
 # COMMAND ----------
 
 # Read silver sales stream and do som ETL before join
-df_sales_stream_silver = spark.readStream.table(f"{database_name}.salessilver")
+df_sales_stream_silver = spark.readStream.table(f"{database_name}.{table_name_sales}")
 df_sales_stream_silver = (df_sales_stream_silver.select(
     col("id").alias("salesid"),
     "productid",
@@ -58,7 +63,7 @@ df_sales_stream_silver = (df_sales_stream_silver.select(
 # COMMAND ----------
 
 # Read products (batch) and do som ETL before join
-df_products_silver = spark.read.table(f"{database_name_batch}.productssilver")
+df_products_silver = spark.read.table(f"{database_name_batch}.{table_name_products}")
 df_products_silver = (df_products_silver.select(
     "productid",
     col("origin").alias("productorigin"),
@@ -80,5 +85,5 @@ df_join_sales_prod = df_sales_stream_silver.join(df_products_silver, "productid"
  outputMode("append").
  option("mergeSchema", "true").
  option("checkpointLocation", f"{lake_checkpoint_root_path}/{checkpoint_path}/v{checkpoint_version}").
- toTable(f"{database_name}.salesproductgold")
+ toTable(f"{database_name}.{table_name_sales_product_gold}")
 )
