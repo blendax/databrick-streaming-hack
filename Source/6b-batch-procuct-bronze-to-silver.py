@@ -63,7 +63,7 @@ print(f"Your table name: {table_name_products_bronze}")
 
 # MAGIC %sql
 # MAGIC -- Note WHEN NOT MATCHED BY requires ADB runtime 12.1+
-# MAGIC MERGE INTO productssilvermyteam1 target USING transformed_bronze_tempview source
+# MAGIC MERGE INTO financedb.productsbronzeNoUCteam1 target USING transformed_bronze_tempview source
 # MAGIC    ON target.productid = source.productid
 # MAGIC    WHEN MATCHED THEN UPDATE SET *
 # MAGIC    WHEN NOT MATCHED BY target THEN INSERT (Id, productid, RegistrationDate, target.updatedts, ProductLevel, ProductName, Origin, Price, status) VALUES (source.id, source.productid, source.registrationdate, source.updatedts, source.productlevel, source.productname, source.origin, source.price, 'new in silver')
@@ -92,4 +92,8 @@ print(f"Your table name: {table_name_products_bronze}")
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from productssilvermyteam1 where status like 'not%'
+# MAGIC select * from financedb.productsbronzeNoUCteam1 where status like 'not%'
+
+# COMMAND ----------
+
+

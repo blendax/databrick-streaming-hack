@@ -79,6 +79,7 @@ df_join_sales_prod = df_sales_stream_silver.join(df_products_silver, "productid"
 # COMMAND ----------
 
 # Write joined stream to new gold/curated table so that Power BI users and other users can use this for different aggregationsb
+print(f"Writing to table: {database_name}.{table_name_sales_product_gold}")
 (df_join_sales_prod.
  writeStream.
  format("delta").
@@ -87,3 +88,7 @@ df_join_sales_prod = df_sales_stream_silver.join(df_products_silver, "productid"
  option("checkpointLocation", f"{lake_checkpoint_root_path}/{checkpoint_path}/v{checkpoint_version}").
  toTable(f"{database_name}.{table_name_sales_product_gold}")
 )
+
+# COMMAND ----------
+
+

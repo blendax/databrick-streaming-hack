@@ -81,3 +81,7 @@ df_transform \
 # time.sleep(30)
 print(f"Table name: {database_name}.{table_name_silver}")
 display(table(f"{database_name}.{table_name_silver}"))
+
+# COMMAND ----------
+
+
