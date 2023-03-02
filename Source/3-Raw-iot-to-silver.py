@@ -59,4 +59,4 @@ display(table(f"{database_name}.{teamName}silveriot"))
 
 # COMMAND ----------
 
-
+table(f"{database_name}.{teamName}silveriot").count()
