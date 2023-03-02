@@ -28,6 +28,7 @@ The users need rights to create and drop tables in the schema/database. The user
     - Runtime version: Standard 12.1
     - Node type: Standard_DS5_V2 (56GB 16 cores)<br>
 <img width="498" alt="image" src="https://user-images.githubusercontent.com/684755/215749999-983c03ba-625d-41b5-b912-9963bb78b0d5.png">
+
 - If you are not using Unity Catalog for the lab you ned to add storage config to the spark config so that you can access the storage account.
 - Expand the advanced options for the cluster you are creating. 
 - Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.<br>
