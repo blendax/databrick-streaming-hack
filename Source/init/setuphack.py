@@ -6,15 +6,15 @@
 # COMMAND ----------
 
 # Mandatory parameters
-teamName = "NoUCteam1" # Storage Account Name
-storage_account_name = "storagewemh" # "mystorageaccountname"
+teamName = "myteam1" # Storage Account Name
+storage_account_name = "mystorageaccountname"
 storage_account_container = "datasets"
 use_dbfs = False # If you set use_dbfs = True you don't have to set storage_account_name
-use_uc = False # Use Unity Catalog (UC) in the lab
-# What catalog and Schema in UC to use for streaming data
-# Note: only have to set schema name e..g. financedb if you don't use UC
-catalog_name = "financecatalog"
-database_name = "financedb"
+use_uc = False # Set to True if you want to use Unity Catalog (UC) in the lab
+# What catalog and Schema to use in Unity Catalog to use for streaming data
+catalog_name = "financecatalog" # Only needed if you use UC
+database_name = "financedb" # Only need to set database_name if not using UC
+
 if use_uc:
     database_name = f"{catalog_name}.financedb"
 # What catalog and Schema in UC to use for batch data (can be the same)
