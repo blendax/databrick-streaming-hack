@@ -16,8 +16,8 @@ The users need rights to create and drop tables in the schema/database. The user
 
 
 2. Make sure you update your team name in the notebook: `/init/setuphack` this will make sure you do get your own copy of the data in the lab.
-  - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though chnage the values of the variables.<br>
-<img width="804" alt="image" src="https://user-images.githubusercontent.com/684755/215749668-ba1ac0c3-e468-4016-bfaf-5e76078fda8e.png">
+  - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though change the values of the variables.<br>
+<img width="763" alt="image" src="https://user-images.githubusercontent.com/684755/222425527-8f9771de-08e6-4681-8207-f15ea0943ce8.png">
 
 3. you need to create a cluster
   - If you want to work as a team you can chose the following when creating a cluster (but you are free to use what you want like personal compute if you don't need to share the cluster):
