@@ -5,6 +5,10 @@ Streaming from source -> bronze -> silver -> gold layer and also joining dimensi
 
 The infrastructure needed for the lab can also be setup using the provided biceps templates which will also match the resource name and keys with the notebooks so that you can get started quickly. It is possible to run the lab without setting up the resources, but then you need to provide your own parameters in the setup notebook.
 
+The lab also supports Unity Catalog which you can enable in the setuphack notebbok via a flag.
+If you want to use Unity Catalog, make sue to have a Catalog and a schema/database where the users in the lab are added.
+The users need rights to create and drop tables in the schema/database. The users also need a location in Unity Catalog to use where they have read and write access.
+
 ## Setup instrcutions
 
 1. Look in the azure portal and write down the name of your storagea account to be used for the lab.
