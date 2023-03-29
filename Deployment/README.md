@@ -14,7 +14,7 @@ az account set -s <subscription id>
 
 Consider updating the location of the deployment to a region close to your location.
 
-image of location in script
+![image](https://user-images.githubusercontent.com/70010056/228456943-68b0d9bf-1253-4f53-bda5-fdc6f474ec9a.png)
 
 Deploy the infrastructure running the deployment script 
 
