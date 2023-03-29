@@ -5,14 +5,8 @@
 # COMMAND ----------
 
 #Params
-table_name_products_bronze = "productsbronze"
-table_name_products_silver = "productssilver" # tag with user name
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC -- Run if you need to clean up
-# MAGIC -- DROP TABLE IF EXISTS batchdblake.productssilver;
+table_name_products_bronze = f"productsbronze{teamName}"
+table_name_products_silver = f"productssilver{teamName}"
 
 # COMMAND ----------
 
@@ -21,6 +15,8 @@ table_name_products_silver = "productssilver" # tag with user name
 
 # COMMAND ----------
 
+print(f"Will create table: {database_name_batch}.{table_name_products_silver}")
+print(f"Using schema from table: {database_name_batch}.{table_name_products_bronze}")
 spark.sql(f"CREATE TABLE IF NOT EXISTS {database_name_batch}.{table_name_products_silver} AS SELECT * from {database_name_batch}.{table_name_products_bronze} WHERE 1=2;")
 
 # COMMAND ----------
@@ -30,7 +26,7 @@ from pyspark.sql.functions import col,when, expr
 # COMMAND ----------
 
 # Define (lazy) transformation
-df_b = spark.table(f"{database_name_batch}.{table_name_products_bronze}")
+df_b = spark.table(f"{database_name}.{table_name_products_bronze}")
 
 # COMMAND ----------
 
@@ -59,11 +55,15 @@ df_b.createOrReplaceTempView("transformed_bronze_tempview")
 
 # COMMAND ----------
 
+print("Replace below catalog.schema.table with your names used in the lab")
+print(f"Your dabase name: {database_name}")
+print(f"Your table name: {table_name_products_bronze}")
+
+# COMMAND ----------
+
 # MAGIC %sql
 # MAGIC -- Note WHEN NOT MATCHED BY requires ADB runtime 12.1+
-# MAGIC USE database batchdblake;
-# MAGIC 
-# MAGIC MERGE INTO productssilver target USING transformed_bronze_tempview source
+# MAGIC MERGE INTO financedb.productsbronzeNoUCteam1 target USING transformed_bronze_tempview source
 # MAGIC    ON target.productid = source.productid
 # MAGIC    WHEN MATCHED THEN UPDATE SET *
 # MAGIC    WHEN NOT MATCHED BY target THEN INSERT (Id, productid, RegistrationDate, target.updatedts, ProductLevel, ProductName, Origin, Price, status) VALUES (source.id, source.productid, source.registrationdate, source.updatedts, source.productlevel, source.productname, source.origin, source.price, 'new in silver')
@@ -92,4 +92,8 @@ df_b.createOrReplaceTempView("transformed_bronze_tempview")
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from productssilver where status like 'not%'
+# MAGIC select * from financedb.productsbronzeNoUCteam1 where status like 'not%'
+
+# COMMAND ----------
+
+

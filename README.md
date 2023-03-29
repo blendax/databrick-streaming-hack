@@ -5,15 +5,20 @@ Streaming from source -> bronze -> silver -> gold layer and also joining dimensi
 
 The infrastructure needed for the lab can also be setup using the provided biceps templates which will also match the resource name and keys with the notebooks so that you can get started quickly. It is possible to run the lab without setting up the resources, but then you need to provide your own parameters in the setup notebook.
 
+The lab also supports Unity Catalog which you can enable in the setuphack notebbok via a flag.
+If you want to use Unity Catalog, make sue to have a Catalog and a schema/database where the users in the lab are added.
+The users need rights to create and drop tables in the schema/database. The users also need a location in Unity Catalog to use where they have read and write access.
+
 ## Setup instrcutions
 
 1. Look in the azure portal and write down the name of your storagea account to be used for the lab.
 <img width="318" alt="image" src="https://user-images.githubusercontent.com/684755/215749458-a0d3e65d-b12c-424b-9041-483c9e3ee7b2.png">
 
 
-2. Make sure you update your team name in the notebook: `/init/setuphack` this will make sure you do get your own copy of the data in the lab.
-  - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though chnage the values of the variables.<br>
-<img width="804" alt="image" src="https://user-images.githubusercontent.com/684755/215749668-ba1ac0c3-e468-4016-bfaf-5e76078fda8e.png">
+2. Make sure you update your team name and the other mandatory parameters in the notebook: `/init/setuphack` this will make sure you do get your own copy of the data in the lab and don't interfere with eachothers data.
+  - You are free to change parameters in `/init/setuphack` based on your needs. Don't change the variable names as the notebooks depend on them. You can though change the values of the variables.<br>
+<img width="763" alt="image" src="https://user-images.githubusercontent.com/684755/222426094-3e241f1c-c9b2-4e0c-a4d7-9340e18d6e42.png">
+
 
 3. you need to create a cluster
   - If you want to work as a team you can chose the following when creating a cluster (but you are free to use what you want like personal compute if you don't need to share the cluster):
@@ -23,8 +28,10 @@ The infrastructure needed for the lab can also be setup using the provided bicep
     - Runtime version: Standard 12.1
     - Node type: Standard_DS5_V2 (56GB 16 cores)<br>
 <img width="498" alt="image" src="https://user-images.githubusercontent.com/684755/215749999-983c03ba-625d-41b5-b912-9963bb78b0d5.png">
-  - You ned to add storage config to the spark config so that you can access the storage account.
-  - Expand the advancec options for the cluster you are creating. Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.<br>
+
+- If you are not using Unity Catalog for the lab you ned to add storage config to the spark config so that you can access the storage account.
+- Expand the advanced options for the cluster you are creating. 
+- Copy the spark config setting in the file: `spark_config_storage.md` replace <storage-account> with the name of your storage account.<br>
 
 <img width="677" alt="image" src="https://user-images.githubusercontent.com/684755/215750161-0236a67c-f141-4834-a057-01b751bd6e37.png"><br>
   - Add required libraries for the cluster under the library tab:

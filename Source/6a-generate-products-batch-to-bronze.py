@@ -17,7 +17,7 @@
 try:
     import dbldatagen as dg
 except:
-    raise Exception("Please install PyPi lib: dbldatagen on cluster or %pip install dbldatagen in a cell in this notebook")
+    raise Exception("Please install PyPi lib: dbldatagen on cluster or run `%pip install dbldatagen` in a cell in this notebook")
     
 
 # COMMAND ----------
@@ -38,7 +38,7 @@ except:
 
 # COMMAND ----------
 
-table_name = "productsbronze"
+table_name = f"productsbronze{teamName}"
 
 # COMMAND ----------
 
@@ -93,3 +93,7 @@ df_products.write.mode("overwrite").saveAsTable(f"{database_name_batch}.{table_n
 # COMMAND ----------
 
 dbutils.notebook.exit("{" + f'"result":"products generated to: {database_name_batch}.{table_name}"'  + ", \"returnkey1\": \"value1\"}")
+
+# COMMAND ----------
+
+

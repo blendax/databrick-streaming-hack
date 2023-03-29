@@ -10,11 +10,11 @@
 # COMMAND ----------
 
 # Path to write checkpoint in checkpoint root folder
-checkpointpath = "checkpoints/raw/sales"
+checkpointpath = "checkpoints/bronzesales"
 # your event hubs consumer group to use for reading eventhub (create one if you don't have)
-raise Excpetion("please set your consumer group that you have in your event hub")
+# raise Exception("please set your consumer group that you have in your event hub")
 evenHubsConsumerGroup = "databrickslab-1"
-table_name = "salesbronze"
+table_name = f"salesbronze{teamName}"
 checkpoint_version = 1
 
 # COMMAND ----------
@@ -78,15 +78,15 @@ df_streaming_sales = spark.readStream.table(f"{database_name}.{table_name}")
 
 from pyspark.sql.functions import window, count
 # Filter and Create a window
-w = df_streaming_sales.filter("enqueuedTime > (now() - INTERVAL 10 minutes)").groupBy(window("enqueuedTime", "15 second")).agg(count("body").alias("count"))
+w = df_streaming_sales.filter("enqueuedTime > (now() - INTERVAL 15 minutes)").groupBy(window("enqueuedTime", "60 second")).agg(count("body").alias("count"))
 
 # COMMAND ----------
 
 query = (
   w
     .writeStream
-    .format("memory")        # memory = store in-memory table (for testing only)
-    .queryName("salescounts")     # salescountspermin = name of the in-memory table
+    .format("memory")        # memory = store in-memory table (not persisting table)
+    .queryName("salescounts")     # salescounts = name of the in-memory table
     .outputMode("complete")  # complete = all the counts should be in the table
     .start()
 )
@@ -103,14 +103,14 @@ query = (
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ##### How many sales do we have per 15 seconds over time for the  last 
+# MAGIC ##### How many sales do we have per XX seconds over time for the  last 
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from salescounts
+# MAGIC select * from salescounts order by window.end
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC #### Please stop the sales count stream above to save some resources before we continue
+# MAGIC #### You can stop the sales count stream above to save some resources before we continue
