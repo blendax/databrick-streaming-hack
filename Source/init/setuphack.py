@@ -101,6 +101,10 @@ if use_dbfs:
     database_name_batch = f"batchdbdbfs{teamName}"
     # location for our database
     database_location_hive_batch = f"{lake_data_root_path}/hivedw/{database_name_batch}"
+    
+if use_uc:
+    # create database table if not extist in UC
+    spark.sql(f"CREATE DATABASE IF NOT EXISTS {database_name}")
 
 # COMMAND ----------
 
